@@ -11,7 +11,7 @@ fs.readFile(process.argv[2], 'utf8', function (err, markdown) {
 	}
 	var counter = 1;
 	var matches = {};
-	var matcher = /\((.*?)\)/g;
+	var matcher = /\[.*?\]\((.*?)\)/g;
 	while (match = matcher.exec(markdown)) {
 		if (!matches[match[1]]) matches[match[1]] = counter++;
 	}
