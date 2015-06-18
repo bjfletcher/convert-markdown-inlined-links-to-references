@@ -15,11 +15,13 @@ fs.readFile(process.argv[2], 'utf8', function (err, markdown) {
 	while (match = matcher.exec(markdown)) {
 		if (!matches[match[1]]) matches[match[1]] = counter++;
 	}
-	console.log(matches);
 	Object.keys(matches).forEach(function(url) {
+		var number = matches[url];
+		// uncomment below and comment above for numbering in reverse
+		//var number = Object.keys(matches).length - matches[url] + 1;
 		var r = new RegExp("(\\[.*?\\])\\(" + url + "\\)", "g");
-		markdown = markdown.replace(r, "$1[" + matches[url] + "]");
-		markdown += "\n[" + matches[url] + "]: " + url;
+		markdown = markdown.replace(r, "$1[" + number + "]");
+		markdown += "\n[" + number + "]: " + url;
 	});
 
 	fs.writeFile(process.argv[3], markdown, 'utf8', function (err) {
